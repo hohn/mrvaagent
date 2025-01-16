@@ -1,7 +1,9 @@
 all: mrvaagent
 
+mala:
+	GOOS=linux GOARCH=arm64 go build
+
 mrvaagent: 
-	# GOOS=linux GOARCH=arm64 go build
 	go build
 
 clean:
