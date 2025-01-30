@@ -50,7 +50,14 @@ func main() {
 		os.Exit(1)
 	}
 
-	databases, err := deploy.InitMinIOCodeQLDatabaseStore()
+	// XX: deprecate
+	// databases, err := deploy.InitMinIOCodeQLDatabaseStore()
+	// if err != nil {
+	// 	slog.Error("Failed to initialize database store", slog.Any("error", err))
+	// 	os.Exit(1)
+	// }
+
+	databases, err := deploy.InitHEPCDatabaseStore()
 	if err != nil {
 		slog.Error("Failed to initialize database store", slog.Any("error", err))
 		os.Exit(1)
