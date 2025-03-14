@@ -125,7 +125,7 @@ func RunAnalysisJob(
 		Spec:           job.Spec,
 		ResultCount:    0,
 		ResultLocation: artifactstore.ArtifactLocation{},
-		Status:         common.StatusError,
+		Status:         common.StatusFailed,
 	}
 
 	// Create a temporary directory
@@ -190,7 +190,7 @@ func RunAnalysisJob(
 		Spec:                 job.Spec,
 		ResultCount:          runResult.ResultCount,
 		ResultLocation:       resultsLocation,
-		Status:               common.StatusSuccess,
+		Status:               common.StatusSucceeded,
 		SourceLocationPrefix: runResult.SourceLocationPrefix,
 		DatabaseSHA:          runResult.DatabaseSHA,
 	}
