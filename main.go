@@ -17,7 +17,7 @@ import (
 func main() {
 	slog.Info("Starting agent")
 	workerCount := flag.Int("workers", 0, "number of workers")
-	logLevel := flag.String("loglevel", "info", "Set log level: debug, info, warn, error")
+	logLevel := flag.String("loglevel", "debug", "Set log level: debug, info, warn, error")
 	flag.Parse()
 
 	// Apply 'loglevel' flag
