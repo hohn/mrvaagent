@@ -1,8 +1,11 @@
 {
 	"folders": [
-		{
-			"path": "."
-		}
+        {
+            "path": "."
+        },
+        {
+            "path": "../mrvacommander"
+        }
     ],
     "settings": {
         "makefile.configureOnOpen": false,
