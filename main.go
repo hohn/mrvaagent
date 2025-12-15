@@ -63,9 +63,11 @@ func main() {
 		os.Exit(1)
 	}
 
+	serverState := deploy.InitPGState()
+
 	var wg sync.WaitGroup
 	ctx, cancel := context.WithCancel(context.Background())
-	go agent.StartAndMonitorWorkers(ctx, artifacts, databases, rabbitMQQueue, *workerCount, &wg)
+	go agent.StartAndMonitorWorkers(ctx, artifacts, databases, rabbitMQQueue, serverState, *workerCount, &wg)
 	slog.Info("Agent started")
 
 	// Gracefully exit on SIGINT/SIGTERM
