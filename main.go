@@ -5,6 +5,7 @@ import (
 	"flag"
 	"log"
 	"log/slog"
+	"net/http"
 	"os"
 	"os/signal"
 	"sync"
@@ -13,6 +14,24 @@ import (
 	"github.com/hohn/mrvacommander/pkg/agent"
 	"github.com/hohn/mrvacommander/pkg/deploy"
 )
+
+func startHealthEndpoint() {
+	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("ok"))
+	})
+
+	port := os.Getenv("AGENT_PORT")
+	if port == "" {
+		port = "8081"
+	}
+
+	slog.Info("Starting health endpoint", "port", port)
+	err := http.ListenAndServe(":"+port, nil)
+	if err != nil {
+		slog.Error("Error starting health endpoint", "error", err)
+	}
+}
 
 func main() {
 	slog.Info("Starting agent")
@@ -69,6 +88,9 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	go agent.StartAndMonitorWorkers(ctx, artifacts, databases, rabbitMQQueue, serverState, *workerCount, &wg)
 	slog.Info("Agent started")
+
+	// Start health check endpoint
+	go startHealthEndpoint()
 
 	// Gracefully exit on SIGINT/SIGTERM
 	sigChan := make(chan os.Signal, 1)
