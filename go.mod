@@ -29,4 +29,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/hohn/mrvacommander => /home/hohn/work-gh/mrva/mrvacommander
+replace github.com/hohn/mrvacommander => ../mrvacommander
